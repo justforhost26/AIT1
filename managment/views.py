@@ -865,7 +865,7 @@ def payfees(request):
 
 def Student_attendence(request):
     try:
-        if request.session['enrollment_number'] is not None:
+        if request.session['faculty_number'] is not None:
             return render(request, "faculty_pages/Student_attendence.html")
         else:
             return render(request, "student_pages/student_login.html")
