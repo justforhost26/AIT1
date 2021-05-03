@@ -833,40 +833,47 @@ def handlerequest(request):
 
 
 def payfees(request):
-    
-    if request.session['enrollment_number'] is not None:
-        if request.method=="POST":
-            fees=float(request.POST['fees'])
-            enrollment_number=request.session['enrollment_number']
-            obj=Student_all.objects.get(enrollment_number=enrollment_number)
-            pp=float(obj.previous_pending)
-            if pp==fees:
-                obj.previous_pending=0
-                obj.total_pending=float(obj.total_pending)-fees
-                obj.save()
+    try:
+        if request.session['enrollment_number'] is not None:
+            if request.method=="POST":
+                fees=float(request.POST['fees'])
+                enrollment_number=request.session['enrollment_number']
+                obj=Student_all.objects.get(enrollment_number=enrollment_number)
+                pp=float(obj.previous_pending)
+                if pp==fees:
+                    obj.previous_pending=0
+                    obj.total_pending=float(obj.total_pending)-fees
+                    obj.save()
 
-                return redirect(No_dues)
-            elif pp>fees:
-                obj.previous_pending = float(obj.previous_pending)-fees
-                obj.total_pending = float(obj.total_pending) - fees
-                obj.save()
-                return redirect(No_dues)
+                    return redirect(No_dues)
+                elif pp>fees:
+                    obj.previous_pending = float(obj.previous_pending)-fees
+                    obj.total_pending = float(obj.total_pending) - fees
+                    obj.save()
+                    return redirect(No_dues)
+                else:
+                    obj.previous_pending = 0
+                    obj.total_pending = float(obj.total_pending) - fees
+                    obj.save()
+                    return redirect(No_dues)
+                
+                return render(request,'student_pages/no_dues.html')
             else:
-                obj.previous_pending = 0
-                obj.total_pending = float(obj.total_pending) - fees
-                obj.save()
-                return redirect(No_dues)
-            return render(request,'student_pages/no_dues.html')
-    else:
-        return render(request,'student_pages/no_dues.html')
-
-
-
-    
-
-       
+                return render(request,'student_pages/no_dues.html')
+        else:
+            return render(request,"student_pages/student_login.html")
+    except:
+        return render(request,"student_pages/student_login.html")
+     
 def Student_attendence(request):
-    return render(request, "faculty_pages/Student_attendence.html")
+    try:
+        if request.session['faculty_number'] is not None:
+            return render(request, "faculty_pages/Student_attendence.html")
+        else:
+            return render(request, "faculty_pages/faculty_login.html")
+    except:
+        return render(request, "faculty_pages/faculty_login.html")
+    
         
 def do_Student_attendence(request):
     if request.method=="POST":
