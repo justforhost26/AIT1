@@ -863,6 +863,7 @@ def payfees(request):
     except:
          return render(request, "student_pages/student_login.html")
 
+       
 def Student_attendence(request):
     return render(request, "faculty_pages/Student_attendence.html")
         
