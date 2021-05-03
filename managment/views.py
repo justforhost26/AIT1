@@ -868,7 +868,7 @@ def Student_attendence(request):
         if request.session['faculty_number'] is not None:
             return render(request, "faculty_pages/Student_attendence.html")
         else:
-            return render(request, "student_pages/student_login.html")
+            return render(request, "faculty_pages/Student_attendence.html")
     except:
          return render(request, "student_pages/student_login.html")
 def do_Student_attendence(request):
