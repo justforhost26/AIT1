@@ -856,8 +856,8 @@ def payfees(request):
                     obj.total_pending = float(obj.total_pending) - fees
                     obj.save()
                     return redirect(No_dues)
-            
                 return render(request,'student_pages/no_dues.html')
+            return render(request,'student_pages/no_dues.html')
 
         else:
             return render(request, "student_pages/student_login.html")          
