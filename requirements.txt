@@ -16,6 +16,8 @@ Interface==2.11.1
 Naked==0.1.31
 Pillow==8.1.0
 pycryptodome==3.9.9
+playsound==1.2.2
+
 pytz==2021.1
 PyYAML==5.4.1
 requests==2.25.1
